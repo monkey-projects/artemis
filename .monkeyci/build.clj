@@ -66,6 +66,7 @@
       (m/script ["pwd"
                  "ls -l"
                  (str "ls -l " target-dir)])
+      (m/depends-on "prepare-image")
       (m/restore-artifacts [docker-files-artifact])))
 
 [metrics-plugin

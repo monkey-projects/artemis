@@ -60,6 +60,15 @@
     :container-opts {:dependencies ["prepare-image"]
                      :restore-artifacts [docker-files-artifact]}}))
 
+(def debug
+  (-> (m/container-job "debug")
+      (m/image "docker.io/alpine:latest")
+      (m/script ["pwd"
+                 "ls -l"
+                 (str "ls -l " target-dir)])
+      (m/restore-artifacts [docker-files-artifact])))
+
 [metrics-plugin
  prepare-image
- build-image]
+ build-image
+ debug]

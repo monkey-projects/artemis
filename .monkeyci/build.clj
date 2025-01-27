@@ -55,7 +55,8 @@
   (pk/multi-platform-image-job
    {:target-img (str "fra.ocir.io/frjdhmocn5qi/artemis:" artemis-version)
     :archs [:arm :amd]
-    :dockerfile "docker/Dockerfile-alpine-21-jre"
+    :dockerfile (str target-dir "/docker/Dockerfile-alpine-21-jre")
+    :subdir target-dir
     :container-opts {:dependencies ["prepare-image"]
                      :restore-artifacts [docker-files-artifact]}}))
 

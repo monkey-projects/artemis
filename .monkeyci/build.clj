@@ -23,8 +23,7 @@
       (m/script
        [(format "git clone -b v%s https://github.com/rh-messaging/artemis-prometheus-metrics-plugin.git"
                 plugin-version)
-        (str "cd " plugin-dir)
-        "mvn install"])
+        (format "cd %s && mvn install" plugin-dir)])
       (m/save-artifacts [plugin-lib-artifact
                          plugin-war-artifact])))
 
@@ -43,10 +42,10 @@
         (m/image "docker.io/alpine/curl:latest")
         (m/script [(str "curl -L" download-url "-o artemis-src.tgz")
                    "tar xzf artemis-src.tgz"
-                   (str "cd " docker-dir)
-                   (str "./prepare-docker.sh --from-release --artemis-version " artemis-version)
-                   (format "cp ../../%s %s/lib" (:path plugin-lib-artifact) target-dir)
-                   (format "cp ../../%s %s/web" (:path plugin-war-artifact) target-dir)])
+                   (format "cd %s && ./prepare-docker.sh --from-release --artemis-version %s"
+                           docker-dir artemis-version)
+                   (format "cp %s %s/lib" (:path plugin-lib-artifact) target-dir)
+                   (format "cp %s %s/web" (:path plugin-war-artifact) target-dir)])
         (m/depends-on (m/job-id metrics-plugin))
         (m/restore-artifacts [plugin-lib-artifact
                               plugin-war-artifact])

@@ -54,7 +54,7 @@
         (m/save-artifacts [docker-files-artifact]))))
 
 (def build-image
-  (pk/multi-platform-image-jobs
+  (pk/multi-platform-image-job
    {:target-img (str "fra.ocir.io/frjdhmocn5qi/artemis:" artemis-version)
     :archs [:arm :amd]
     :dockerfile "docker/Dockerfile-alpine-21-jre"

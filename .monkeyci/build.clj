@@ -62,10 +62,12 @@
 
 (def debug
   (-> (m/container-job "debug")
-      (m/image "docker.io/alpine:latest")
+      (m/image "docker.io/monkeyci/kaniko:1.23.2")
       (m/script ["pwd"
                  "ls -l"
-                 (str "ls -l " target-dir)])
+                 (str "ls -l " target-dir)
+                 (str "ls -l " target-dir "/docker")
+                 (format "/kaniko/executor --no-push --dockerfile %s/docker/Dockerfile-alpine-21-jre --context dir://%s" target-dir target-dir)])
       (m/depends-on "prepare-image")
       (m/restore-artifacts [docker-files-artifact])))
 

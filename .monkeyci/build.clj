@@ -40,7 +40,7 @@
     ;; We could also use an action job for this
     (-> (m/container-job "prepare-image")
         (m/image "docker.io/alpine/curl:latest")
-        (m/script [(format "curl '%s' -o artemis-src.tgz" download-url)
+        (m/script [(format "curl -L '%s' -o artemis-src.tgz" download-url)
                    "tar xzf artemis-src.tgz"
                    (format "cd %s && ./prepare-docker.sh --from-release --artemis-version %s"
                            docker-dir artemis-version)

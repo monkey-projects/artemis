@@ -20,7 +20,6 @@
 (def metrics-plugin
   (-> (m/container-job "metrics-plugin")
       (m/image "docker.io/maven:3.9-eclipse-temurin-21")
-      (m/work-dir "/opt/metrics")
       (m/script
        [(format "git clone -b v%s https://github.com/rh-messaging/artemis-prometheus-metrics-plugin.git"
                 plugin-version)

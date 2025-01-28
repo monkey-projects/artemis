@@ -10,7 +10,7 @@
 
 (def plugin-lib-artifact
   (m/artifact "plugin-lib"
-              (format "%s/artemis-prometheus-metrics-plugin/target/original-artemis-prometheus-metrics-plugin-%s.jar"
+              (format "%s/artemis-prometheus-metrics-plugin/target/artemis-prometheus-metrics-plugin-%s.jar"
                       plugin-dir
                       plugin-version)))
 

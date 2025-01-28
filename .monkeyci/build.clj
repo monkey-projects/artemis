@@ -54,7 +54,7 @@
 
 (def build-image
   (pk/multi-platform-image-job
-   {:target-img (str "fra.ocir.io/frjdhmocn5qi/artemis:" artemis-version)
+   {:target-img (str "docker.io/monkeyci/artemis:" artemis-version)
     :archs [:arm :amd]
     :dockerfile (str target-dir "/docker/Dockerfile-alpine-21-jre")
     :subdir target-dir

@@ -5,6 +5,7 @@
 (def plugin-version "2.1.0")
 (def plugin-dir "artemis-prometheus-metrics-plugin")
 
+;; TODO Use commit tag as version instead
 (def artemis-version "2.39.0")
 
 (def plugin-lib-artifact
@@ -60,17 +61,6 @@
     :container-opts {:dependencies ["prepare-image"]
                      :restore-artifacts [docker-files-artifact]}}))
 
-(def debug
-  (-> (m/container-job "debug")
-      (m/image "docker.io/monkeyci/kaniko:1.23.2")
-      (m/script ["pwd"
-                 "ls -l"
-                 (str "ls -l " target-dir "/bin")
-                 (format "/kaniko/executor --no-push --dockerfile %s/docker/Dockerfile-alpine-21-jre --context dir://%s" target-dir target-dir)])
-      (m/depends-on "prepare-image")
-      (m/restore-artifacts [docker-files-artifact])))
-
 [metrics-plugin
  prepare-image
- build-image
- debug]
+ build-image]
